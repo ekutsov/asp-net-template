@@ -1,0 +1,16 @@
+global using Microsoft.AspNetCore.Mvc;
+global using A2SEVEN.Domain.Exceptions;
+global using System.Net;
+global using System.Text.Json;
+global using A2SEVEN.Infrastructure.Context;
+global using Microsoft.EntityFrameworkCore;
+global using A2SEVEN.Core.Services;
+global using A2SEVEN.Domain.Settings;
+global using A2SEVEN.Domain.DTO;
+global using A2SEVEN.Domain.Interfaces;
+global using A2SEVEN.Domain.ViewModels;
+global using Microsoft.AspNetCore.Authorization;
+global using A2SEVEN.API.Configuration;
+global using A2SEVEN.Core.Configuration;
+global using A2SEVEN.Infrastructure.Entities;
+global using Microsoft.AspNetCore.Identity;

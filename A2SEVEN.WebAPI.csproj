@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk"> 
+
+  <PropertyGroup> 
+    <PackageType>Template</PackageType> 
+    <PackageVersion>1.0.2</PackageVersion> 
+    <PackageId>A2SEVEN.WebAPI</PackageId>
+    <Title></Title> 
+    <Authors>Evgeny Kutsov, A2SEVEN</Authors>
+    <Description>Clean Architecture Template</Description> 
+    <PackageTags>dotnet-new;templates;a2seven-web-api</PackageTags> 
+    <TargetFramework>netstandard2.0</TargetFramework> 
+    <IncludeContentInPack>true</IncludeContentInPack> 
+    <IncludeBuildOutput>false</IncludeBuildOutput> 
+    <ContentTargetFolders>content</ContentTargetFolders> 
+    <NoWarn>$(NoWarn);NU5128</NoWarn> 
+    <NoDefaultExcludes>true</NoDefaultExcludes> 
+  </PropertyGroup> 
+
+  <ItemGroup> 
+    <Content Include="A2SEVEN.WebAPI\**\*" Exclude="A2SEVEN.WebAPI\**\bin\**;A2SEVEN.WebAPI\**\obj\**" /> 
+    <Compile Remove="..\**\*" /> 
+  </ItemGroup> 
+
+</Project> 

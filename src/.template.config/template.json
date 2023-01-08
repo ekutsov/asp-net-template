@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Evgeny Kutsov",
+    "classifications": [
+        "Web",
+        "API",
+        "C#"
+    ],
+    "identity": "A2SEVEN",
+    "name": "A2SEVEN Web API",
+    "shortName": "a2seven_web_api",
+    "sourceName": "A2SEVEN",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "preferNameDirectory": true,
+    "symbols": {
+        "author": {
+            "type": "parameter",
+            "replaces": "Project author"
+        },
+        "Framework": {
+            "type": "parameter",
+            "description": "The target framework for the project.",
+            "datatype": "choice",
+            "choices": [
+                {
+                    "choice": "net7.0",
+                    "description": ".NET 7"
+                },
+                {
+                    "choice": "net6.0",
+                    "description": ".NET 6"
+                },
+                {
+                    "choice": "net5.0",
+                    "description": ".NET 5" 
+                }
+            ],
+            "defaultValue": "net7.0",
+            "replaces": "{TargetFramework}"
+        },
+        "Authorization": {
+            "type": "parameter",
+            "description": "Type of authorization",
+            "datatype": "choice",
+            "isEnabled": true,
+            "choices": [
+                {
+                    "choice": "NoAuth",
+                    "description": "No authorization"
+                },
+                {
+                    "choice": "JWTAuth",
+                    "description": "JWT authorization"
+                }
+            ],
+            "defaultValue": "NoAuth"
+        }
+    }
+}
