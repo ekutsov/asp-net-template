@@ -2,9 +2,9 @@ namespace A2SEVEN.API.Controllers;
 
 [AllowAnonymous]
 [Route("api")]
-public class AuthController : BaseController<IAuthenticationService>
+public class AuthenticationController : BaseController<IAuthenticationService>
 {
-    public AuthController(IAuthenticationService service) : base(service) { }
+    public AuthenticationController(IAuthenticationService service) : base(service) { }
 
     /// <summary>
     /// Login in to the system using the specified credentials
