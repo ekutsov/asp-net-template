@@ -1,11 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using A2SEVEN.Domain.Constants;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-
-namespace A2SEVEN.API.Configuration;
+﻿namespace A2SEVEN.API.Configuration;
 
 public static class IServiceCollectionExtensions
 {
@@ -41,12 +34,12 @@ public static class IServiceCollectionExtensions
         });
     }
 
-    public static void SetupAuthorization(this IServiceCollection services)
+    #if (authorization == JWT)
+    public static void AddIdentityAndAuthorization(this IServiceCollection services)
     {
-        ServiceProvider serviceProvider = services.BuildServiceProvider();
-        var jwtOptions = serviceProvider.GetService<IOptions<JWTSettings>>();
         services.AddIdentityAndConfigure();
-        ConfigureJwt(services, jwtOptions?.Value);
+
+        services.ConfigureJwt();
 
         services.AddCors(options =>
         {
@@ -58,9 +51,14 @@ public static class IServiceCollectionExtensions
                 .AllowCredentials());
         });
     }
-    private static void ConfigureJwt(IServiceCollection services, JWTSettings? jwtSettings)
+    private static void ConfigureJwt(this IServiceCollection services)
     {
+        ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+        JWTSettings? jwtSettings = serviceProvider.GetService<IOptions<JWTSettings>>()?.Value;
+
         JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -85,7 +83,7 @@ public static class IServiceCollectionExtensions
             };
         });
     }
-    public static void AddIdentityAndConfigure(this IServiceCollection services)
+    private static void AddIdentityAndConfigure(this IServiceCollection services)
     {
         services.Configure<IdentityOptions>(options =>
         {
@@ -109,4 +107,5 @@ public static class IServiceCollectionExtensions
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
     }
+    #endif
 }

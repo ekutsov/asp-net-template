@@ -19,7 +19,7 @@
         {
             "modifiers": [
                 {
-                    "condition": "(Authorization == NoAuth)",
+                    "condition": "(authorization == NoAuth)",
                     "exclude": [
                         "A2SEVEN.API/Controllers/AuthenticationController.cs",
                         "A2SEVEN.Core/Services/Implementation/AuthenticationService.cs",
@@ -44,14 +44,20 @@
                         "**/*.user",
                         "**/*.lock.json",
                         ".docker/database/**",
-                        ".docker/init-database.sh"
+                        ".docker/init-database.sh/**"
+                    ]
+                },
+                {
+                    "condition": "!includeDocker",
+                    "exclude": [
+                        ".docker/**"
                     ]
                 }
             ]
         }
     ],
     "symbols": {
-        "Authorization": {
+        "authorization": {
             "type": "parameter",
             "description": "Type of authorization",
             "datatype": "choice",
@@ -67,6 +73,13 @@
                 }
             ],
             "defaultValue": "NoAuth"
+        },
+        "includeDocker": {
+            "type": "parameter",
+            "description": "Add docker to application",
+            "datatype": "bool",
+            "enableQuotelessLiterals": true,
+            "defaultValue": "false"
         }
     }
 }

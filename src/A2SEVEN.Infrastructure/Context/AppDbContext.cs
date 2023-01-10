@@ -1,6 +1,6 @@
 ﻿namespace A2SEVEN.Infrastructure.Context;
 
-#if (Authorization == JWT)
+#if (authorization == JWT)
 
 public class AppDbContext : IdentityDbContext<User, Role, int>
 {
@@ -8,7 +8,7 @@ public class AppDbContext : IdentityDbContext<User, Role, int>
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 }
 
-#elif (Authorization == NoAuth)
+#elif (authorization == NoAuth)
 
 public class AppDbContext : DbContext {
 	 public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
