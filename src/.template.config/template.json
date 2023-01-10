@@ -34,6 +34,18 @@
                         "A2SEVEN.Domain/ViewModels/AuthenticateViewModel.cs",
                         "A2SEVEN.Domain/ViewModels/ResetPasswordViewModel.cs"
                     ]
+                },
+                {
+                    "exclude": [
+                        "**/[Bb]in/**",
+                        "**/[Oo]bj/**",
+                        ".template.config/**/*",
+                        "**/*.filelist",
+                        "**/*.user",
+                        "**/*.lock.json",
+                        ".docker/database/**",
+                        ".docker/init-database.sh"
+                    ]
                 }
             ]
         }
@@ -43,7 +55,7 @@
             "type": "parameter",
             "description": "Type of authorization",
             "datatype": "choice",
-            "isEnabled": true,
+            "enableQuotelessLiterals": true,
             "choices": [
                 {
                     "choice": "NoAuth",

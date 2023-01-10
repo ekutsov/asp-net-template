@@ -7,6 +7,8 @@ builder.Services.AddAppDbContext(configuration);
 
 builder.Services.AddServices();
 
+builder.Services.SetupAuthorization();
+
 builder.Services.AddSettings(configuration);
 
 builder.Services.AddAutoMapperProfiles();
