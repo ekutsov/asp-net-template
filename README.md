@@ -71,7 +71,7 @@ View models проекта
 <summary><b style="font-size: 18px">Проект Core</b></summary>
 
 ### **Configuration**
-- ** AutomapperExtensions** - расшерения  automapper
+- **AutomapperExtensions** - расшерения  automapper
 
 ### **Services**
 - **Implementation** - сервисы проекта
