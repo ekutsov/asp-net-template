@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Evgeny Kutsov",
+    "classifications": [
+        "Web",
+        "API",
+        "C#"
+    ],
+    "identity": "A2SEVEN",
+    "name": "A2SEVEN Web API",
+    "shortName": "a2seven_web_api",
+    "sourceName": "A2SEVEN",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "preferNameDirectory": true,
+    "sources": [
+        {
+            "modifiers": [
+                {
+                    "condition": "(authorization == NoAuth)",
+                    "exclude": [
+                        "A2SEVEN.API/Controllers/AuthenticationController.cs",
+                        "A2SEVEN.Core/Services/Implementation/AuthenticationService.cs",
+                        "A2SEVEN.Core/Services/Interfaces/IAuthenticationService.cs",
+                        "A2SEVEN.Infrastructure/Entities/Identity/User.cs",
+                        "A2SEVEN.Infrastructure/Entities/Identity/Role.cs",
+                        "A2SEVEN.Infrastructure/Entities/Identity/RefreshToken.cs",
+                        "A2SEVEN.Domain/DTO/AuthenticateDTO.cs",
+                        "A2SEVEN.Domain/DTO/ForgotPasswordDTO.cs",
+                        "A2SEVEN.Domain/DTO/RefreshTokenDTO.cs",
+                        "A2SEVEN.Domain/DTO/ResetPasswordDTO.cs",
+                        "A2SEVEN.Domain/ViewModels/AuthenticateViewModel.cs",
+                        "A2SEVEN.Domain/ViewModels/ResetPasswordViewModel.cs"
+                    ]
+                },
+                {
+                    "exclude": [
+                        "**/[Bb]in/**",
+                        "**/[Oo]bj/**",
+                        ".template.config/**/*",
+                        "**/*.filelist",
+                        "**/*.user",
+                        "**/*.lock.json",
+                        ".docker/database/**",
+                        ".docker/init-database.sh/**"
+                    ]
+                },
+                {
+                    "condition": "!includeDocker",
+                    "exclude": [
+                        ".docker/**"
+                    ]
+                }
+            ]
+        }
+    ],
+    "symbols": {
+        "authorization": {
+            "type": "parameter",
+            "description": "Type of authorization",
+            "datatype": "choice",
+            "enableQuotelessLiterals": true,
+            "choices": [
+                {
+                    "choice": "NoAuth",
+                    "description": "No authorization"
+                },
+                {
+                    "choice": "JWT",
+                    "description": "JWT authorization"
+                }
+            ],
+            "defaultValue": "NoAuth"
+        },
+        "includeDocker": {
+            "type": "parameter",
+            "description": "Add docker to application",
+            "datatype": "bool",
+            "enableQuotelessLiterals": true,
+            "defaultValue": "false"
+        }
+    }
+}
