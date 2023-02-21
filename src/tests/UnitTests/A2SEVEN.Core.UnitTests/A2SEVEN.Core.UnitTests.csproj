@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\A2SEVEN.Core\A2SEVEN.Core.csproj" />
+    <ProjectReference Include="..\A2SEVEN.UnitTests.Shared\A2SEVEN.UnitTests.Shared.csproj" />
   </ItemGroup>
 
 </Project>

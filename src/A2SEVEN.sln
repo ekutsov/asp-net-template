@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A2SEVEN.Infrastructure", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A2SEVEN.Domain", "A2SEVEN.Domain\A2SEVEN.Domain.csproj", "{625342E1-2E85-4B76-A12E-CA972920F6C1}"
 EndProject
+#if (!disableTests)
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3AD2A6BB-DE87-42FC-80E9-6C2BA47878DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{14C9A80F-CE43-47EC-BB91-412C02EE91B7}"
@@ -19,6 +20,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A2SEVEN.API.UnitTests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A2SEVEN.Core.UnitTests", "tests\UnitTests\A2SEVEN.Core.UnitTests\A2SEVEN.Core.UnitTests.csproj", "{16AB85A2-0AF8-490F-8C09-E8B90983DBBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A2SEVEN.UnitTests.Shared", "Tests\UnitTests\A2SEVEN.UnitTests.Shared\A2SEVEN.UnitTests.Shared.csproj", "{CBA73FF7-26DF-4F99-BE1A-4CB3BBCE0A3B}"
+EndProject
+#endif
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,10 @@ Global
 		{16AB85A2-0AF8-490F-8C09-E8B90983DBBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16AB85A2-0AF8-490F-8C09-E8B90983DBBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16AB85A2-0AF8-490F-8C09-E8B90983DBBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA73FF7-26DF-4F99-BE1A-4CB3BBCE0A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA73FF7-26DF-4F99-BE1A-4CB3BBCE0A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA73FF7-26DF-4F99-BE1A-4CB3BBCE0A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA73FF7-26DF-4F99-BE1A-4CB3BBCE0A3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,9 +68,12 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {895C619C-7DE7-4404-94E5-C06E2F0B1E7E}
 	EndGlobalSection
+    #if (!disableTests)
 	GlobalSection(NestedProjects) = preSolution
 		{14C9A80F-CE43-47EC-BB91-412C02EE91B7} = {3AD2A6BB-DE87-42FC-80E9-6C2BA47878DD}
 		{E99AFB71-5E4D-4490-AA98-76A5EF0FEF10} = {14C9A80F-CE43-47EC-BB91-412C02EE91B7}
 		{16AB85A2-0AF8-490F-8C09-E8B90983DBBF} = {14C9A80F-CE43-47EC-BB91-412C02EE91B7}
+		{CBA73FF7-26DF-4F99-BE1A-4CB3BBCE0A3B} = {14C9A80F-CE43-47EC-BB91-412C02EE91B7}
 	EndGlobalSection
+	#endif
 EndGlobal

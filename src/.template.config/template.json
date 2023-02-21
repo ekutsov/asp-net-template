@@ -32,7 +32,11 @@
                         "A2SEVEN.Domain/DTO/RefreshTokenDTO.cs",
                         "A2SEVEN.Domain/DTO/ResetPasswordDTO.cs",
                         "A2SEVEN.Domain/ViewModels/AuthenticateViewModel.cs",
-                        "A2SEVEN.Domain/ViewModels/ResetPasswordViewModel.cs"
+                        "A2SEVEN.Domain/ViewModels/ResetPasswordViewModel.cs",
+                        "Tests/UnitTests/A2SEVEN.API.UnitTests/Controllers/AuthenticationControllerTests.cs",
+                        "Tests/UnitTests/A2SEVEN.Core.UnitTests/Services/AuthenticationServiceTests.cs",
+                        "Tests/UnitTests/A2SEVEN.UnitTests.Shared/Constants/TokenConstants.cs",
+                        "Tests/UnitTests/A2SEVEN.UnitTests.Shared/Constants/UserConstants.cs"
                     ]
                 },
                 {
@@ -51,6 +55,12 @@
                     "condition": "!includeDocker",
                     "exclude": [
                         ".docker/**"
+                    ]
+                },
+                {
+                    "condition": "disableTests",
+                    "exclude": [
+                       "Tests/**"
                     ]
                 }
             ]
@@ -77,6 +87,13 @@
         "includeDocker": {
             "type": "parameter",
             "description": "Add docker to application",
+            "datatype": "bool",
+            "enableQuotelessLiterals": true,
+            "defaultValue": "false"
+        },
+        "disableTests": {
+            "type": "parameter",
+            "description": "Disable unit tests to application",
             "datatype": "bool",
             "enableQuotelessLiterals": true,
             "defaultValue": "false"

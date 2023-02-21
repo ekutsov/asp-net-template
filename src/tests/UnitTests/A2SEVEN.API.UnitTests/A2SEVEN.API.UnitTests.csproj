@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\A2SEVEN.API\A2SEVEN.API.csproj" />
+    <ProjectReference Include="..\A2SEVEN.UnitTests.Shared\A2SEVEN.UnitTests.Shared.csproj" />
   </ItemGroup>
 
 </Project>

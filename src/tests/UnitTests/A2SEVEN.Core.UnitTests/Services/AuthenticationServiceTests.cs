@@ -1,9 +1,9 @@
-namespace A2SEVEN.API.UnitTests.Controllers;
+namespace A2SEVEN.Core.UnitTests.Services;
 
-public class AuthenticationControllerTests
+public class AuthenticationServiceTests
 {
     [Fact]
-    public async Task AuthenticationController_Authenticate_ShouldReturnActionResultWithAuthenticationViewModel()
+    public async Task AuthenticationService_AuthenticateAsync_ShouldReturnAuthenticationViewModel()
     {
         // Arrange
         var authDto = new AuthenticateDTO
@@ -12,28 +12,25 @@ public class AuthenticationControllerTests
             Password = UserConstants.Password
         };
 
-        // For test refreshToken == jwtToken
         var authViewModel = new AuthenticateViewModel(TokenConstants.JwtTokenTest, TokenConstants.RefreshTokenTest);
 
         var authenticationService = new Mock<IAuthenticationService>();
         authenticationService.Setup(e => e.AuthenticateAsync(authDto))
             .ReturnsAsync(authViewModel);
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = await authController.Authenticate(authDto);
+        var result = await authenticationService.Object.AuthenticateAsync(authDto);
 
         // Assert
-        result.Value.Should().NotBeNull();
-        result.Should().BeOfType<ActionResult<AuthenticateViewModel>>();
+        result.Should().NotBeNull();
+        result.Should().BeOfType<AuthenticateViewModel>();
 
-        result.Value!.JwtToken.Should().BeEquivalentTo(authViewModel.JwtToken);
-        result.Value!.RefreshToken.Should().BeEquivalentTo(authViewModel.RefreshToken);
+        result.JwtToken.Should().BeEquivalentTo(authViewModel.JwtToken);
+        result.RefreshToken.Should().BeEquivalentTo(authViewModel.RefreshToken);
     }
 
     [Fact]
-    public async Task AuthenticationController_Authenticate_ShouldThrowForbiddenExceptionIfUserNotFound()
+    public async Task AuthenticationService_AuthenticateAsync_ShouldThrowForbiddenExceptionIfLoginFailed()
     {
         // Arrange
         var emptyAuthenticationDto = new AuthenticateDTO();
@@ -42,10 +39,8 @@ public class AuthenticationControllerTests
         authenticationService.Setup(e => e.AuthenticateAsync(emptyAuthenticationDto))
             .ThrowsAsync(new ForbiddenException(AuthenticationErrors.LoginFailed));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.Authenticate(emptyAuthenticationDto);
+        var result = () => authenticationService.Object.AuthenticateAsync(emptyAuthenticationDto);
 
         // Assert
         await result.Should().ThrowAsync<ForbiddenException>()
@@ -53,49 +48,35 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public async Task AuthenticationController_RefreshToken_ReturnActionResultWithAuthenticateViewModelResult()
+    public async Task AuthenticationService_RefreshTokenAsync_ShouldReturnAuthenticateViewModel()
     {
         // Arrange
-        var refreshTokenDto = new RefreshTokenDTO
-        {
-            Token = TokenConstants.RefreshTokenTest
-        };
+        var authenticationViewModel = new AuthenticateViewModel(TokenConstants.NewJwtTokenTest, TokenConstants.RefreshTokenTest);
 
-        var authenticateViewModel = new AuthenticateViewModel(TokenConstants.NewJwtTokenTest, TokenConstants.RefreshTokenTest);
-
-        var authenticationServie = new Mock<IAuthenticationService>();
-        authenticationServie.Setup(e => e.RefreshTokenAsync(refreshTokenDto.Token))
-            .ReturnsAsync(authenticateViewModel);
-
-        var authController = new AuthenticationController(authenticationServie.Object);
+        var authenticationService = new Mock<IAuthenticationService>();
+        authenticationService.Setup(e => e.RefreshTokenAsync(TokenConstants.RefreshTokenTest))
+            .ReturnsAsync(authenticationViewModel);
 
         // Act
-        var result = await authController.RefreshToken(refreshTokenDto);
+        var result = await authenticationService.Object.RefreshTokenAsync(TokenConstants.RefreshTokenTest);
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeOfType<ActionResult<AuthenticateViewModel>>();
-        result.Value!.JwtToken.Should().BeEquivalentTo(TokenConstants.NewJwtTokenTest);
-        result.Value!.RefreshToken.Should().BeEquivalentTo(TokenConstants.RefreshTokenTest);
+        result.Should().BeOfType<AuthenticateViewModel>();
+        result.JwtToken.Should().BeEquivalentTo(TokenConstants.NewJwtTokenTest);
+        result.RefreshToken.Should().BeEquivalentTo(TokenConstants.RefreshTokenTest);
     }
 
     [Fact]
-    public async Task AuthenticationController_RefreshToken_ThrowBadRequestExceptionIfTokenExpired()
+    public async Task AuthenticationService_RefreshTokenAsync_ThrowBadRequestExceptionIfTokenExpired()
     {
         // Arrange
-        var refreshTokenDto = new RefreshTokenDTO
-        {
-            Token = TokenConstants.ExpiredTokenTest
-        };
-
         var authenticationService = new Mock<IAuthenticationService>();
-        authenticationService.Setup(e => e.RefreshTokenAsync(refreshTokenDto.Token))
+        authenticationService.Setup(e => e.RefreshTokenAsync(TokenConstants.ExpiredTokenTest))
             .ThrowsAsync(new BadRequestException(AuthenticationErrors.InvalidRefreshToken));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.RefreshToken(refreshTokenDto);
+        var result = () => authenticationService.Object.RefreshTokenAsync(TokenConstants.ExpiredTokenTest);
 
         // Assert
         await result.Should().ThrowAsync<BadRequestException>()
@@ -103,46 +84,31 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public async Task AuthenticationController_RevokeToken_NotTrowException()
+    public async Task AuthenticationService_RevokeTokenAsync_NotTrowException()
     {
         // Arrange
-        var refreshTokenDto = new RefreshTokenDTO
-        {
-            Token = TokenConstants.JwtTokenTest
-        };
-
         var authenticationService = new Mock<IAuthenticationService>();
-        authenticationService.Setup(e => e.RevokeTokenAsync(refreshTokenDto.Token));
-
-        var authController = new AuthenticationController(authenticationService.Object);
+        authenticationService.Setup(e => e.RevokeTokenAsync(TokenConstants.JwtTokenTest));
 
         // Act
-        var result = () => authController.RevokeToken(refreshTokenDto);
+        var result = () => authenticationService.Object.RevokeTokenAsync(TokenConstants.JwtTokenTest);
 
         // Assert
-
         await result.Should().NotThrowAsync();
     }
 
     [Fact]
-    public async Task AuthenticationController_RevokeToken_ThrowBadRequestExceptionIfTokenIsEmpty()
+    public async Task AuthenticationService_RevokeTokenAsync_ThrowBadRequestExceptionIfTokenIsEmpty()
     {
         // Arrange
         var emptyToken = "";
 
-        var refreshTokenDto = new RefreshTokenDTO
-        {
-            Token = emptyToken
-        };
-
         var authenticationService = new Mock<IAuthenticationService>();
-        authenticationService.Setup(e => e.RevokeTokenAsync(refreshTokenDto.Token))
+        authenticationService.Setup(e => e.RevokeTokenAsync(emptyToken))
             .ThrowsAsync(new BadRequestException(AuthenticationErrors.TokenRequired));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.RevokeToken(refreshTokenDto);
+        var result = () => authenticationService.Object.RevokeTokenAsync(emptyToken);
 
         // Assert
         await result.Should().ThrowAsync<BadRequestException>()
@@ -150,31 +116,23 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public async Task AuthenticationController_RevokeToken_ThrowBadReqeustExceptionIfTokenExpired()
+    public async Task AuthenticationService_RevokeTokenAsync_ThrowBadRequestExceptionIfTokenExpired()
     {
         // Arrange
-        var refreshTokenDto = new RefreshTokenDTO
-        {
-            Token = TokenConstants.ExpiredTokenTest
-        };
-
         var authenticationService = new Mock<IAuthenticationService>();
-        authenticationService.Setup(e => e.RevokeTokenAsync(refreshTokenDto.Token))
+        authenticationService.Setup(e => e.RevokeTokenAsync(TokenConstants.ExpiredTokenTest))
             .ThrowsAsync(new BadRequestException(AuthenticationErrors.TokenRequired));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.RevokeToken(refreshTokenDto);
+        var result = () => authenticationService.Object.RevokeTokenAsync(TokenConstants.ExpiredTokenTest);
 
         // Assert
-
         await result.Should().ThrowAsync<BadRequestException>()
             .WithMessage(AuthenticationErrors.TokenRequired);
     }
 
     [Fact]
-    public async Task AuthenticationController_ForgotPassword_ThrowNotFoundIfUserNotExists()
+    public async Task AuthenticationService_ForgotPassword_ThrowNotFoundIfUserNotExist()
     {
         // Arrange
         var emptyForgotPasswordDto = new ForgotPasswordDTO();
@@ -183,10 +141,8 @@ public class AuthenticationControllerTests
         authenticationService.Setup(e => e.ForgotPassword(emptyForgotPasswordDto))
             .ThrowsAsync(new NotFoundException(AuthenticationErrors.UserDoesNotExists));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.ForgotPassword(emptyForgotPasswordDto);
+        var result = () => authenticationService.Object.ForgotPassword(emptyForgotPasswordDto);
 
         // Assert
         await result.Should().ThrowAsync<NotFoundException>()
@@ -194,7 +150,7 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public async Task AuthenticationController_ResetPassword_ReturnSuccessResetPasswordViewModel()
+    public async Task AuthenticationService_ResetPassword_ReturnSuccessResetPasswordViewModel()
     {
         // Arrange
         var resetPasswordDto = new ResetPasswordDTO
@@ -214,20 +170,19 @@ public class AuthenticationControllerTests
         authenticationService.Setup(e => e.ResetPassword(resetPasswordDto))
             .ReturnsAsync(resetPasswordViewModel);
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = await authController.ResetPassword(resetPasswordDto);
+        var result = await authenticationService.Object.ResetPassword(resetPasswordDto);
 
         // Assert
         result.Should().NotBeNull();
-        result.Value!.Email.Should().NotBeNullOrEmpty();
-        result.Value!.Success.Should().BeTrue();
-        result.Value!.Success.Should().Be(resetPasswordViewModel.Success);
+        result.Email.Should().NotBeNullOrEmpty();
+        result.Email.Should().BeEquivalentTo(resetPasswordDto.Email);
+        result.Success.Should().BeTrue();
+        result.Success.Should().Be(resetPasswordViewModel.Success);
     }
 
     [Fact]
-    public async Task AuthenticationController_ResetPassword_ReturnNotSuccessResetPasswordViewModel()
+    public async Task AuthenticationService_ResetPassword_ReturnNotSuccessResetPasswordViewModel()
     {
         // Arrange
         var resetPasswordDto = new ResetPasswordDTO
@@ -247,26 +202,24 @@ public class AuthenticationControllerTests
         authenticationService.Setup(e => e.ResetPassword(resetPasswordDto))
             .ReturnsAsync(resetPasswordViewModel);
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = await authController.ResetPassword(resetPasswordDto);
+        var result = await authenticationService.Object.ResetPassword(resetPasswordDto);
 
         // Assert
         result.Should().NotBeNull();
-        result.Value!.Email.Should().NotBeNullOrEmpty();
-        result.Value!.Email.Should().BeEquivalentTo(resetPasswordViewModel.Email);
-        result.Value!.Success.Should().BeFalse();
-        result.Value!.Success.Should().Be(resetPasswordViewModel.Success);
+        result.Email.Should().NotBeNullOrEmpty();
+        result.Email.Should().BeEquivalentTo(resetPasswordDto.Email);
+        result.Success.Should().BeFalse();
+        result.Success.Should().Be(resetPasswordViewModel.Success);
     }
 
     [Fact]
-    public async Task AuthenticationController_ResetPassword_ThrowNotFoundExceptionIfUserNotFound()
+    public async Task AuthenticationService_ResetPassword_ThrowNotFoundExceptionIfUserNotFound()
     {
         // Arrange
         var resetPasswordDto = new ResetPasswordDTO
         {
-            Email = UserConstants.Email,
+            Email = UserConstants.NotExistEmail,
             Password = UserConstants.Password,
             Token = TokenConstants.JwtTokenTest
         };
@@ -275,10 +228,8 @@ public class AuthenticationControllerTests
         authenticationService.Setup(e => e.ResetPassword(resetPasswordDto))
             .ThrowsAsync(new NotFoundException(AuthenticationErrors.UserDoesNotExists));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.ResetPassword(resetPasswordDto);
+        var result = () => authenticationService.Object.ResetPassword(resetPasswordDto);
 
         // Assert
         await result.Should().ThrowAsync<NotFoundException>()
@@ -286,7 +237,7 @@ public class AuthenticationControllerTests
     }
 
     [Fact]
-    public async Task AuthenticationController_ResetPassword_ThrowInvalidOperationIfResetPasswordFailed()
+    public async Task AuthenticationService_ResetPassword_ThrowInvalidOperationIfResetPasswordFailed()
     {
         // Arrange
         var resetPasswordDto = new ResetPasswordDTO
@@ -300,14 +251,11 @@ public class AuthenticationControllerTests
         authenticationService.Setup(e => e.ResetPassword(resetPasswordDto))
             .ThrowsAsync(new InvalidOperationException(AuthenticationErrors.ResetPasswordTokenExpired));
 
-        var authController = new AuthenticationController(authenticationService.Object);
-
         // Act
-        var result = () => authController.ResetPassword(resetPasswordDto);
+        var result = () => authenticationService.Object.ResetPassword(resetPasswordDto);
 
         // Assert
         await result.Should().ThrowAsync<InvalidOperationException>()
             .WithMessage(AuthenticationErrors.ResetPasswordTokenExpired);
     }
-
 }
