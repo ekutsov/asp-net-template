@@ -15,9 +15,11 @@ public static class IServiceCollectionExtensions
 
     public static void AddServices(this IServiceCollection services)
     {
+        #if (authorization == JWT)
         services.AddTransient<UserManager<User>>();
 
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        #endif
     }
 
     public static void AddSettings(this IServiceCollection services, IConfiguration configuration)
