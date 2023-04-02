@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\A2SEVEN.Core\A2SEVEN.Core.csproj" />
-    <ProjectReference Include="..\A2SEVEN.UnitTests.Shared\A2SEVEN.UnitTests.Shared.csproj" />
+    <ProjectReference Include="..\..\..\EKUTSOV.Core\EKUTSOV.Core.csproj" />
+    <ProjectReference Include="..\EKUTSOV.UnitTests.Shared\EKUTSOV.UnitTests.Shared.csproj" />
   </ItemGroup>
 
 </Project>

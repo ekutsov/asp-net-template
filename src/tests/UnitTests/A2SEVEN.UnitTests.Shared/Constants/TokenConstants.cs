@@ -1,4 +1,4 @@
-namespace A2SEVEN.UnitTests.Shared.Constants;
+namespace EKUTSOV.UnitTests.Shared.Constants;
 
 public static class TokenConstants
 {

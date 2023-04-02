@@ -4,19 +4,19 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["A2SEVEN.API/A2SEVEN.API.csproj", "A2SEVEN.API/"]
-COPY ["A2SEVEN.Core/A2SEVEN.Core.csproj", "A2SEVEN.Core/"]
-COPY ["A2SEVEN.Infrastructure/A2SEVEN.Infrastructure.csproj", "A2SEVEN.Infrastructure/"]
-COPY ["A2SEVEN.Domain/A2SEVEN.Domain.csproj", "A2SEVEN.Domain/"]
-RUN dotnet restore "A2SEVEN.API/A2SEVEN.API.csproj"
+COPY ["EKUTSOV.API/EKUTSOV.API.csproj", "EKUTSOV.API/"]
+COPY ["EKUTSOV.Core/EKUTSOV.Core.csproj", "EKUTSOV.Core/"]
+COPY ["EKUTSOV.Infrastructure/EKUTSOV.Infrastructure.csproj", "EKUTSOV.Infrastructure/"]
+COPY ["EKUTSOV.Domain/EKUTSOV.Domain.csproj", "EKUTSOV.Domain/"]
+RUN dotnet restore "EKUTSOV.API/EKUTSOV.API.csproj"
 COPY . .
-WORKDIR "/src/A2SEVEN.API"
-RUN dotnet build "A2SEVEN.API.csproj" -c Release -o /app/build
+WORKDIR "/src/EKUTSOV.API"
+RUN dotnet build "EKUTSOV.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "A2SEVEN.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "EKUTSOV.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "A2SEVEN.API.dll"]
+ENTRYPOINT ["dotnet", "EKUTSOV.API.dll"]

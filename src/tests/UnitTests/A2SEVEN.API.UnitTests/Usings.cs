@@ -4,15 +4,15 @@ global using Moq;
 global using System;
 global using System.Threading.Tasks;
 
-global using A2SEVEN.API.Controllers;
+global using EKUTSOV.API.Controllers;
 
 #if (authorization == JWT)
-global using A2SEVEN.Domain.Interfaces;
-global using A2SEVEN.Domain.DTO;
-global using A2SEVEN.Domain.ViewModels;
-global using A2SEVEN.UnitTests.Shared.Constants;
+global using EKUTSOV.Domain.Interfaces;
+global using EKUTSOV.Domain.DTO;
+global using EKUTSOV.Domain.ViewModels;
+global using EKUTSOV.UnitTests.Shared.Constants;
 #endif
 
-global using A2SEVEN.Domain.Exceptions;
-global using A2SEVEN.Domain.Constants;
+global using EKUTSOV.Domain.Exceptions;
+global using EKUTSOV.Domain.Constants;
 global using Microsoft.AspNetCore.Mvc;

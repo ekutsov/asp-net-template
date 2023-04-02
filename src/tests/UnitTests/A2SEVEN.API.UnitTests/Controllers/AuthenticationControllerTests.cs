@@ -1,4 +1,4 @@
-namespace A2SEVEN.API.UnitTests.Controllers;
+namespace EKUTSOV.API.UnitTests.Controllers;
 
 public class AuthenticationControllerTests
 {

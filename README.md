@@ -1,13 +1,13 @@
-# **A2SEVEN Base Web API Template**
+# **EKUTSOV Base Web API Template**
 
 ## **Установка  и создание шаблона**
 
 ### **Установка шаблона**
-`dotnet new install A2SEVEN.WebAPI`
+`dotnet new install EKUTSOV.WebAPI`
 
 ### **Создание шаблона**
 
-`dotnet new a2seven_web_api`<br>
+`dotnet new ekutsov_web_api`<br>
 
 **Параметры:** <br>
 `--name` - Имя решения  

@@ -6,10 +6,10 @@
         "API",
         "C#"
     ],
-    "identity": "A2SEVEN",
-    "name": "A2SEVEN Web API",
-    "shortName": "a2seven_web_api",
-    "sourceName": "A2SEVEN",
+    "identity": "EKUTSOV",
+    "name": "EKUTSOV Web API",
+    "shortName": "ekutsov_web_api",
+    "sourceName": "EKUTSOV",
     "tags": {
         "language": "C#",
         "type": "project"
@@ -21,22 +21,22 @@
                 {
                     "condition": "(authorization == NoAuth)",
                     "exclude": [
-                        "A2SEVEN.API/Controllers/AuthenticationController.cs",
-                        "A2SEVEN.Core/Services/Implementation/AuthenticationService.cs",
-                        "A2SEVEN.Core/Services/Interfaces/IAuthenticationService.cs",
-                        "A2SEVEN.Infrastructure/Entities/Identity/User.cs",
-                        "A2SEVEN.Infrastructure/Entities/Identity/Role.cs",
-                        "A2SEVEN.Infrastructure/Entities/Identity/RefreshToken.cs",
-                        "A2SEVEN.Domain/DTO/AuthenticateDTO.cs",
-                        "A2SEVEN.Domain/DTO/ForgotPasswordDTO.cs",
-                        "A2SEVEN.Domain/DTO/RefreshTokenDTO.cs",
-                        "A2SEVEN.Domain/DTO/ResetPasswordDTO.cs",
-                        "A2SEVEN.Domain/ViewModels/AuthenticateViewModel.cs",
-                        "A2SEVEN.Domain/ViewModels/ResetPasswordViewModel.cs",
-                        "Tests/UnitTests/A2SEVEN.API.UnitTests/Controllers/AuthenticationControllerTests.cs",
-                        "Tests/UnitTests/A2SEVEN.Core.UnitTests/Services/AuthenticationServiceTests.cs",
-                        "Tests/UnitTests/A2SEVEN.UnitTests.Shared/Constants/TokenConstants.cs",
-                        "Tests/UnitTests/A2SEVEN.UnitTests.Shared/Constants/UserConstants.cs"
+                        "EKUTSOV.API/Controllers/AuthenticationController.cs",
+                        "EKUTSOV.Core/Services/Implementation/AuthenticationService.cs",
+                        "EKUTSOV.Core/Services/Interfaces/IAuthenticationService.cs",
+                        "EKUTSOV.Infrastructure/Entities/Identity/User.cs",
+                        "EKUTSOV.Infrastructure/Entities/Identity/Role.cs",
+                        "EKUTSOV.Infrastructure/Entities/Identity/RefreshToken.cs",
+                        "EKUTSOV.Domain/DTO/AuthenticateDTO.cs",
+                        "EKUTSOV.Domain/DTO/ForgotPasswordDTO.cs",
+                        "EKUTSOV.Domain/DTO/RefreshTokenDTO.cs",
+                        "EKUTSOV.Domain/DTO/ResetPasswordDTO.cs",
+                        "EKUTSOV.Domain/ViewModels/AuthenticateViewModel.cs",
+                        "EKUTSOV.Domain/ViewModels/ResetPasswordViewModel.cs",
+                        "Tests/UnitTests/EKUTSOV.API.UnitTests/Controllers/AuthenticationControllerTests.cs",
+                        "Tests/UnitTests/EKUTSOV.Core.UnitTests/Services/AuthenticationServiceTests.cs",
+                        "Tests/UnitTests/EKUTSOV.UnitTests.Shared/Constants/TokenConstants.cs",
+                        "Tests/UnitTests/EKUTSOV.UnitTests.Shared/Constants/UserConstants.cs"
                     ]
                 },
                 {

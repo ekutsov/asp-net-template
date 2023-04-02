@@ -1,4 +1,4 @@
-namespace A2SEVEN.Core.UnitTests.Services;
+namespace EKUTSOV.Core.UnitTests.Services;
 
 public class AuthenticationServiceTests
 {
